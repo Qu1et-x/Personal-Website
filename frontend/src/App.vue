@@ -1,13 +1,4 @@
-<template>
-  <router-view />
-</template>
-
+<template><MainLayout /></template>
 <script setup>
+import MainLayout from './layouts/MainLayout.vue'
 </script>
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-</style>
