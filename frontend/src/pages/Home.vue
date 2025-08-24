@@ -11,7 +11,7 @@
   </section>
 </template>
 <script setup>
-const avatar = "https://avatars.githubusercontent.com/u/583231?v=4";
+const avatar = new URL("../../assets/avatar.png", import.meta.url).href;
 const posts = [
   {
     slug: "hello-vue-blog",
