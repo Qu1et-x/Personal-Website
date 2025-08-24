@@ -1,52 +1,40 @@
 <template>
-  <aside :class="['sidebar', { collapsed }]">
-    <button class="toggle-btn" @click="collapsed = !collapsed" aria-label="切换侧边栏">
-      <span v-if="collapsed">»</span>
-      <span v-else>«</span>
-    </button>
-    <nav v-if="!collapsed" class="nav">
-      <RouterLink to="/">主页</RouterLink>
-      <RouterLink to="/about">关于</RouterLink>
-    </nav>
+  <aside class="sidebar">
+    <SidebarItem 
+      v-for="item in items" 
+      :key="item.label" 
+      :icon="item.icon" 
+      :label="item.label"
+      :isActive="item.label === activeItem"
+      @select="() => selectItem(item.label)"
+    />
   </aside>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-const collapsed = ref(false)
+import SidebarItem from './SidebarItem.vue'
+
+const items = [
+  { icon: 'mdi:view-dashboard-outline', label: 'Dashboard' },
+  { icon: 'mdi:note-outline', label: 'Posts' },
+  { icon: 'mdi:account-outline', label: 'Profile' },
+  { icon: 'mdi:cog-outline', label: 'Settings' }
+]
+
+const activeItem = ref('Dashboard')
+
+function selectItem(label) {
+  activeItem.value = label
+}
 </script>
 
 <style scoped>
 .sidebar {
   width: 220px;
-  background: var(--sidebar-bg);
-  border-right: 1px solid var(--border);
-  transition: width .25s ease;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-}
-.sidebar.collapsed {
-  width: 56px;
-}
-.toggle-btn {
-  border: none;
-  background: transparent;
-  font-size: 18px;
-  cursor: pointer;
-  align-self: flex-end;
-}
-.nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-}
-a {
-  text-decoration: none;
-  color: var(--text);
-}
-a.router-link-active {
-  font-weight: 600;
+  background: var(--sidebar-bg, #f9fafb);
+  border-right: 1px solid #e5e7eb;
+  height: 100vh;
+  padding-top: 20px;
 }
 </style>
